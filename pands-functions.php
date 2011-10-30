@@ -2,8 +2,8 @@
 /*
  Plugin Name: Point and Stare CMS Functions
  Plugin URI: http://pointandstare.com
- Description: This MU plugin will generate special functions that help convert you WordPress install into a CMS, add security, white label and SEO facilities.
- Version: 1.0
+ Description: This MU plugin will generate special functions that help convert you WordPress install into a CMS, add security, white lable and SEO facilities.
+ Version: 1.0.1
  Author: Lee Rickler
  Author URI: http://pointandstare.com
  
@@ -81,9 +81,7 @@ add_filter('login_errors', create_function('$a', "return null;"));
 
 // ** BACK END ** //
 
-// WP 3.1
-
-// REMOVE NEW ADMIN BAR //
+// REMOVE ADMIN BAR //
 
 add_filter( 'show_admin_bar', '__return_false' );
 
@@ -122,7 +120,7 @@ add_filter('user_contactmethods','my_new_contactmethods',10,1);
 add_filter( 'pre_site_transient_update_core', create_function( '$a', "return null;" ) );
 
 // REMOVE META BOXES FROM DEFAULT PAGES SCREEN
-// ADJUST AS REQUIRED
+// Un/comment as required
 
 function pands_remove_boxes() {
 
@@ -151,7 +149,7 @@ function pands_remove_boxes() {
 add_action('admin_init', 'pands_remove_boxes');
 
 // DISABLE DEFAULT DASHBOARD WIDGETS
-// ADJUST AS REQUIRED
+// Un/comment as required
 
 function disable_default_dashboard_widgets() {
 	remove_meta_box('dashboard_right_now', 'dashboard', 'core');
@@ -166,7 +164,7 @@ function disable_default_dashboard_widgets() {
 add_action('admin_menu', 'disable_default_dashboard_widgets');
 
 // REMOVE DEFAULT WIDGETS //
-// ADJUST AS REQUIRED
+// Un/comment as required
 
 add_action( 'widgets_init', 'my_unregister_widgets' );
 
@@ -184,6 +182,7 @@ function my_unregister_widgets() {
 }
 
 // REMOVE MENU ITEMS
+// Un/comment as required
 
 function remove_admin_menus(){
 	remove_menu_page('link-manager.php'); // Links
@@ -370,7 +369,7 @@ add_filter('wp_mail_from_name', 'res_fromname');
 // ADMIN FOOTER STUFF
 
 function modify_footer_admin () {
-  echo '<a href="http://pointandstare.com"><img src="http://dl.dropbox.com/u/19351261/point-and-stare-favicon.png" /></a> '.get_bloginfo('name').' online presence developed by <a href="http://pointandstare.com">Point and Stare</a>.';
+  echo '<a href="http://MYURL.com"><img src="http://PATH/TO/image.png" /></a> '.get_bloginfo('name').' online presence developed by <a href="http://MYURL.com">MY COMPANY</a>.';
 }
 
 add_filter('admin_footer_text', 'modify_footer_admin');
@@ -423,7 +422,7 @@ function mytheme_robots()
 	echo "User-agent: duggmirror\n";
 	echo "Disallow:/* \n\n";
 	
-	echo "Sitemap: http://pressdevs.com/sitemap.xml";
+	echo "Sitemap: http://MYDOMAIN.com/sitemap.xml";
 	
 }
 add_action( 'do_robots', 'mytheme_robots' );
