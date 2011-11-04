@@ -4,7 +4,7 @@
  Plugin URI: http://pointandstare.com
  Description: This MU plugin will generate special functions that help convert you WordPress install into a CMS, add security, white lable and SEO facilities.
  Version: 1.0.1
- Author: Lee Rickler
+ Author: Lee Rickler (and many others)
  Author URI: http://pointandstare.com
  
  This plugin is licensed under the GNU General Public License version 2 or later.
@@ -37,7 +37,7 @@ add_filter('login_errors',create_function('$a', "return null;"));
 // ADD FAVICON
 
 function blog_favicon() {
-echo '<link rel="Shortcut Icon" type="image/x-icon" href="'.get_bloginfo('wpurl').'/favicon.png" />';
+	echo '<link rel="Shortcut Icon" type="image/x-icon" href="'.get_bloginfo('wpurl').'/favicon.png" />';
 }
 add_action('wp_head', 'blog_favicon');
 
@@ -53,15 +53,15 @@ function my_custom_logo() {
 // ** FRONT END ** //
 
 // * REMOVE HEADER TAT * //
-remove_action('wp_head', 'rsd_link');
-remove_action('wp_head', 'wp_generator');
-remove_action('wp_head', 'feed_links', 2);
-remove_action('wp_head', 'index_rel_link');
-remove_action('wp_head', 'wlwmanifest_link');
-remove_action('wp_head', 'feed_links_extra', 3);
-remove_action('wp_head', 'start_post_rel_link', 10, 0);
-remove_action('wp_head', 'parent_post_rel_link', 10, 0);
-remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+	remove_action('wp_head', 'rsd_link');
+	remove_action('wp_head', 'wp_generator');
+	remove_action('wp_head', 'feed_links', 2);
+	remove_action('wp_head', 'index_rel_link');
+	remove_action('wp_head', 'wlwmanifest_link');
+	remove_action('wp_head', 'feed_links_extra', 3);
+	remove_action('wp_head', 'start_post_rel_link', 10, 0);
+	remove_action('wp_head', 'parent_post_rel_link', 10, 0);
+	remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
 
 // Prevents WordPress from testing ssl capability on domain.com/xmlrpc.php?rsd
 remove_filter('atom_service_url','atom_service_url_filter');
@@ -384,28 +384,28 @@ add_filter( 'update_footer', 'change_footer_version', 9999 );
 
 function mytheme_robots()
 {
-    echo "Disallow: /cgi-bin\n";
-    echo "Disallow: /wp-admin\n";
-    echo "Disallow: /wp-includes\n";
+	echo "Disallow: /cgi-bin\n";
+	echo "Disallow: /wp-admin\n";
+	echo "Disallow: /wp-includes\n";
 	echo "Disallow: /tag\n";
 	echo "Disallow: /wget\n";
 	echo "Disallow: /httpd\n";
-    echo "Disallow: /wp-content\n";
+	echo "Disallow: /wp-content\n";
 	echo "Disallow: /wp-content/plugins\n";
 	echo "Disallow: /wp-content/cache\n";
 	echo "Disallow: /wp-content/themes\n";
 	echo "Disallow: /wp-content/upgrade\n";
 	echo "Disallow: /wp-content/uploads\n";
-    echo "Disallow: /trackback\n";
-    echo "Disallow: /feed\n";
-    echo "Disallow: /comments\n";
-    echo "Disallow: /category/*/*\n";
-    echo "Disallow: */trackback\n";
-    echo "Disallow: */feed\n";
-    echo "Disallow: */comments\n";
+	echo "Disallow: /trackback\n";
+	echo "Disallow: /feed\n";
+	echo "Disallow: /comments\n";
+	echo "Disallow: /category/*/*\n";
+	echo "Disallow: */trackback\n";
+	echo "Disallow: */feed\n";
+	echo "Disallow: */comments\n";
 	echo "Disallow: /*?*\n";
 	echo "Disallow: /*?\n";
-    echo "Disallow: */print\n\n";
+	echo "Disallow: */print\n\n";
 	
 	echo "User-agent: Googlebot-Image\n";
 	echo "Disallow:/* \n\n";
