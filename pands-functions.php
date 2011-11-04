@@ -70,7 +70,7 @@ remove_filter('atom_service_url','atom_service_url_filter');
 
 if (!is_admin()) {
 	wp_deregister_script('jquery');
-	wp_register_script('jquery', ("/jlir/devs/js/main.js"), false);
+	wp_register_script('jquery', ("/PATH/TO/js/main.js"), false);
 	wp_enqueue_script('jquery');
 }
 
@@ -390,12 +390,12 @@ function mytheme_robots()
 	echo "Disallow: /tag\n";
 	echo "Disallow: /wget\n";
 	echo "Disallow: /httpd\n";
-    echo "Disallow: /press\n";
-	echo "Disallow: /press/plugins\n";
-	echo "Disallow: /press/cache\n";
-	echo "Disallow: /press/themes\n";
-	echo "Disallow: /press/upgrade\n";
-	echo "Disallow: /press/uploads\n";
+    echo "Disallow: /wp-content\n";
+	echo "Disallow: /wp-content/plugins\n";
+	echo "Disallow: /wp-content/cache\n";
+	echo "Disallow: /wp-content/themes\n";
+	echo "Disallow: /wp-content/upgrade\n";
+	echo "Disallow: /wp-content/uploads\n";
     echo "Disallow: /trackback\n";
     echo "Disallow: /feed\n";
     echo "Disallow: /comments\n";
