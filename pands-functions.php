@@ -3,7 +3,7 @@
  Plugin Name: Point and Stare CMS Functions
  Plugin URI: http://pointandstare.com
  Description: This MU plugin will generate special functions that help convert you WordPress install into a CMS, add security, white lable and SEO facilities.
- Version: 1.0.1
+ Version: 1.0.2
  Author: Lee Rickler (and many others)
  Author URI: http://pointandstare.com
  
