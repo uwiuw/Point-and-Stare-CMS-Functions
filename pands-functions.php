@@ -214,6 +214,21 @@ function remove_submenus() {
 	}
 add_action('admin_menu', 'remove_submenus');
 
+// AND THEN CHANGE THE ADMIN MENU ORDER
+   function custom_menu_order($menu_ord) {
+       if (!$menu_ord) return true;
+       return array(
+        'index.php', // Dashboard
+        'edit.php', // Posts
+        'edit.php?post_type=page', // Pages
+        'upload.php', // Media
+        'users.php', // Users
+        'plugins.php', // Plugins
+    );
+   }
+add_filter('custom_menu_order', 'custom_menu_order');
+add_filter('menu_order', 'custom_menu_order');
+
 // ** REMOVE EDITOR FROM ADMIN MENU ** //
 function remove_editor_menu() {
    remove_action('admin_menu', '_add_themes_utility_last', 101);
