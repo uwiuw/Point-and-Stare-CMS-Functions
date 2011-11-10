@@ -1,14 +1,20 @@
 <?php
 /*
  Plugin Name: Point and Stare CMS Functions
- Plugin URI: http://pointandstare.com
+ Plugin URI:https://github.com/PointandStare/Point-and-Stare-CMS-Functions
  Description: This MU plugin will generate special functions that help convert you WordPress install into a CMS, add security, white lable and SEO facilities.
- Version: 1.0.2
+ Version: 1.0.3
  Author: Lee Rickler (and many others)
  Author URI: http://pointandstare.com
  
  This plugin is licensed under the GNU General Public License version 2 or later.
 */
+
+// POINT AND STARE PLUGIN UPDATE NOTIFICATOR
+// UN/COMMENT THIS LINE IF YOU DON'T/ DO WANT TO BE NOTIFIED OF UPDATES
+// DON'T FORGET TO UPLOAD THE FILE TO YOUR MU-PLUGINS FOLDER
+
+require_once('pands-notifier.php');
 
 // ** MAIN IMAGE REPLACEMENTS ** //
 
