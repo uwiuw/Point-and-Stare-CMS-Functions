@@ -92,7 +92,7 @@ function pands_plugin_updates_output() {
 	}
 	else{
 ?>
-    <h3>You have the latest version of the PandS Plugin.</h3>
+    <h3>You have the latest version of the Point and Stare CMS Plugin.</h3>
     </div>
 <?php
 	}

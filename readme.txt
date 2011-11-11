@@ -1,9 +1,15 @@
+Point and Stare CMS functions WordPress plugin
 This WordPress MU plugin will generate special functions that help convert your WordPress install into a CMS, add security, white label and SEO functions and facilities.
 
 Simply add to your WordPress theme's MU folder (or create one) and the functions will automatically become active.
 
-v1.0.3 - Added new update notification system (optional).
-If you want to be notified of a new version, upload the pands-notifier.php to your mu-plugins folder and un-comment the notifier line.
+Point and Stare plugs updater notifier (optional)
+If you want to be informed when the plugin is updated also install the pands-notifier.php file into your mu-plugins folder.
+This step is totally optional.
+
+v1.0.4 - There was fluff and stuff.
+Removed fluff
+Removed stuff
 
 File paths:
 wp-content/mu-plugins/pands-functions.php
