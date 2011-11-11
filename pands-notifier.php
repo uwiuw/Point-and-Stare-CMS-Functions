@@ -3,13 +3,12 @@
  Plugin Name: Point and Stare Updater
  Plugin URI: http://pointandstare.com
  Description: This MU plugin will generate an update notice for the Point and Stare CMS Functions plugin when required.
- Version: 0.1
+ Version: 0.2
  Author: Lee Rickler
  Author URI: http://pointandstare.com
  
  This plugin is licensed under the GNU General Public License version 2 or later.
 */
-
 
 add_action('admin_init', 'pands_plugin_init' );
 add_action('admin_menu', 'pands_plugin_add_page');
@@ -38,11 +37,6 @@ function pands_plugin_init(){
 function pands_plugin_options_validate($input) {
 	if ( !is_array( $input ) )
 		return $input;
-}
-
-/* Add menu page */
-function pands_plugin_add_page() {
-	add_options_page('PandS Plugin Options', 'PandS Plugin Options', 'manage_options', 'pands_plugin_options', 'pands_plugin_options_do_page');
 }
 
 /*Check for Point and Stare Plugin updates */
@@ -76,7 +70,7 @@ function pands_plugin_updates() {
 	if($plugin_update['current_version'] < $plugin_update['new_version'])
 		$opts = "<span class='update-plugins count-1'><span class='update-count'>1</span></span>";
 	
-	add_dashboard_page('PandS Updates', 'PandS Updates' . $opts, 'edit_themes', 'pands_plugin_options', 'pands_plugin_updates_output');
+	add_dashboard_page('PandS Updates', 'PandS Updates' . $opts, 'edit_plugins', 'pands_plugin_options', 'pands_plugin_updates_output');
 }
 
 function pands_plugin_updates_output() {
@@ -88,11 +82,11 @@ function pands_plugin_updates_output() {
 <?php    
 	if($plugin_update['current_version'] < $plugin_update['new_version']){
 		echo '<div id="message" class="updated fade">
-			<p><strong>There is a new version of the PandS Plugin available</strong>. You have version ' . $plugin_update['current_version'] . ' installed.  Update to ' . $plugin_update['new_version'] . '.</p>
+			<p><strong>There is a new version of the Point and Stare CMS Plugin available</strong>. You have version ' . $plugin_update['current_version'] . ' installed.  Update to ' . $plugin_update['new_version'] . '.</p>
 			</div>
 			<p>Download the new version and install manually via FTP:</p>
 			<p><a class="button" href="https://github.com/PointandStare/Point-and-Stare-CMS-Functions/zipball/master">Download Point and Stare CMS Functions Plugin ' . $plugin_update['new_version'] . '</a></p>
-			<p><strong>Please Note:</strong> Depending on your configuration, some settings may be lost. Please install on your test install first.<br />Also, because of the customisations that you\'re required to manually make, you will only download, not automatically install, these files.
+			<p><strong>Please Note:</strong> Depending on your configuration, some settings may be lost. Please install on your test install first.<br />Also, because of the customisations that you\'re required to manually make, you will only download, not automatically install, these files.<br />Once your changes have been made, FTP the file to your mu-plugins folder.
 			<h2>Changelog</h2>' . $changelog_output
 		;
 	}
@@ -105,59 +99,4 @@ function pands_plugin_updates_output() {
 	
 }
 
-/* Build the theme options page */
-function pands_plugin_options_do_page() {
-	?>
-	<div class="wrap">
-		<h2>PandS Plugin Options</h2>
-		<form method="post" action="options.php">
-			<?php
-            	settings_fields('pands_plugin_options_group');
-				
-				$options = get_option('pands_plugin_options');
-			?>
-			<table class="form-table">
-                <tr valign="top"> 
-                    <th scope="row"><label for="pands_plugin_options[pands_header_search]">Search in Header</label></th>
-                    <td>
-                        <fieldset>
-                        <p><label><input name="pands_plugin_options[pands_header_search]" type="radio" value="Normal" <?php checked('Normal', $options['pands_header_search']); ?>/> Normal</label></p>
-                        <p><label><input name="pands_plugin_options[pands_header_search]" type="radio" value="Search" <?php checked('Search', $options['pands_header_search']); ?>/> Search</label></p>
-                        </fieldset>
-                        <span class="description">This option controls whether or not a search box will appear in the header</span>
-                    </td>
-               </tr>
-               <tr valign="top"> 
-                <th scope="row"><label for="pands_plugin_options[pands_nav_type]">Navigation Type</label></th>
-                <td>
-                    <fieldset>
-                    <p><label><input name="pands_plugin_options[pands_nav_type]" type="radio" value="One Level" <?php checked('One Level', $options['pands_nav_type']); ?>/> One Level</label></p>
-                    <p><label><input name="pands_plugin_options[pands_nav_type]" type="radio" value="Two Level" <?php checked('Two Level', $options['pands_nav_type']); ?>/> Two Level</label></p>
-                    <p><label><input name="pands_plugin_options[pands_nav_type]" type="radio" value="None" <?php checked('None', $options['pands_nav_type']); ?>/> None</label></p>
-                    </fieldset>
-                    <span class="description">Select the type of horizontal navigation you want to use.  Please refer to the <a href='http://webguide.ua.edu'>PandS Webguide documentation</a> for more information.</span>
-                </td>
-           </tr>
-           <tr valign="top"> 
-                <th scope="row"><label for="pands_plugin_options[pands_layout]">Content Layout</label></th>
-                <td>
-                    <fieldset>
-                    <p><label><input name="pands_plugin_options[pands_layout]" type="radio" value="Small Sidebar on Left" <?php checked('Small Sidebar on Left', $options['pands_layout']); ?>/> Small Sidebar on Left</label></p>
-                    <p><label><input name="pands_plugin_options[pands_layout]" type="radio" value="Small Sidebar on Right" <?php checked('Small Sidebar on Right', $options['pands_layout']); ?>/> Small Sidebar on Right</label></p>
-                    <p><label><input name="pands_plugin_options[pands_layout]" type="radio" value="No Sidebar" <?php checked('No Sidebar', $options['pands_layout']); ?>/> No Sidebar</label></p>
-                    <p><label><input name="pands_plugin_options[pands_layout]" type="radio" value="Large Sidebar on Left" <?php checked('Large Sidebar on Left', $options['pands_layout']); ?>/> Large Sidebar on Left</label></p>
-                    <p><label><input name="pands_plugin_options[pands_layout]" type="radio" value="Large Sidebar on Right" <?php checked('Large Sidebar on Right', $options['pands_layout']); ?>/> Large Sidebar on Right</label></p>
-                    <p><label><input name="pands_plugin_options[pands_layout]" type="radio" value="Two Small Sidebars" <?php checked('Two Small Sidebars', $options['pands_layout']); ?>/> Two Small Sidebars</label></p>
-                    </fieldset>
-                    <span class="description">This option will control the layout of your content.  Please note that if you choose 'No Sidebar', Widgets will not be active.</span>
-                </td>
-           </tr>
-			</table>
-			<p class="submit">
-			<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
-			</p>
-		</form>
-	</div>
-	<?php	
-}
 ?>
