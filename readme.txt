@@ -3,7 +3,7 @@ This WordPress MU plugin will generate special functions that help convert your 
 
 Simply add to your WordPress theme's MU folder (or create one) and the functions will automatically become active.
 
-Point and Stare plugs updater notifier (optional)
+Point and Stare plugins updater notifier (optional)
 If you want to be informed when the plugin is updated also install the pands-notifier.php file into your mu-plugins folder.
 This step is totally optional.
 

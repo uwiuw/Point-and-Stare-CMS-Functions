@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name: Point and Stare CMS Functions
- Plugin URI:https://github.com/PointandStare/Point-and-Stare-CMS-Functions
+ Plugin URI: https://github.com/PointandStare/Point-and-Stare-CMS-Functions
  Description: This MU plugin will generate special functions that help convert you WordPress install into a CMS, add security, white lable and SEO facilities.
  Version: 1.0.4
  Author: Lee Rickler (and many others)
@@ -38,17 +38,17 @@ add_filter('login_errors',create_function('$a', "return null;"));
 
 function blog_favicon() {
 	echo '<link rel="Shortcut Icon" type="image/x-icon" href="'.get_bloginfo('wpurl').'/favicon.png" />';
-}
+	}
 add_action('wp_head', 'blog_favicon');
 
-// REPLACE ADMIN WP LOGO
+// REPLACE ADMIN WP LOGO WITH YOUR FAVICON (WP 3.3)
 
-add_action('admin_head', 'my_custom_logo');
 function my_custom_logo() {
    echo '<style type="text/css">
    li#wp-admin-bar-wp-logo a { background: #000 url('.get_bloginfo('wpurl').'/favicon.png) no-repeat right !important}
    li#wp-admin-bar-wp-logo ul { visibility:hidden; display:none; background:#000!important }</style>';
    }
+add_action('admin_head', 'my_custom_logo');
 
 // ** FRONT END ** //
 
@@ -78,7 +78,6 @@ if (!is_admin()) {
 
 add_filter('login_errors', create_function('$a', "return null;"));
 
-
 // ** BACK END ** //
 
 // REMOVE ADMIN BAR //
@@ -88,11 +87,11 @@ add_filter( 'show_admin_bar', '__return_false' );
 // REMOVE NEW l10n SCRIPT REFERENCE //
 
 if ( !is_admin() ) {
-function my_init_method() {
-wp_deregister_script( 'l10n' );
-}
-add_action('init', 'my_init_method'); 
-}
+	function my_init_method() {
+	wp_deregister_script( 'l10n' );
+	}
+	add_action('init', 'my_init_method');
+	}
 
 // CHANGE 'HOWDY' TO 'LOGGED IN AS'
 
@@ -123,29 +122,27 @@ add_filter( 'pre_site_transient_update_core', create_function( '$a', "return nul
 // Un/comment as required
 
 function pands_remove_boxes() {
-
 	// *** For posts *** //
-	//remove_meta_box( 'postcustom' , 'post' , 'normal' );
-	//remove_meta_box( 'postexcerpt' , 'post' , 'normal' );
-	//remove_meta_box( 'trackbacksdiv' , 'post' , 'normal' );
-	//remove_meta_box( 'commentstatusdiv' , 'post' , 'normal' );
-	//remove_meta_box( 'revisionsdiv' , 'post' , 'normal' );
-	//remove_meta_box( 'authordiv' , 'post' , 'normal' );
-	//remove_meta_box( 'categorydiv' , 'post' , 'normal' );
-	//remove_meta_box( 'tagsdiv-post_tag' , 'post' , 'normal' );
-	//remove_meta_box( 'submitdiv' , 'post' , 'normal' );
+	remove_meta_box( 'postcustom' , 'post' , 'normal' );
+	remove_meta_box( 'postexcerpt' , 'post' , 'normal' );
+	remove_meta_box( 'trackbacksdiv' , 'post' , 'normal' );
+	remove_meta_box( 'commentstatusdiv' , 'post' , 'normal' );
+	remove_meta_box( 'revisionsdiv' , 'post' , 'normal' );
+	remove_meta_box( 'authordiv' , 'post' , 'normal' );
+	remove_meta_box( 'categorydiv' , 'post' , 'normal' );
+	remove_meta_box( 'tagsdiv-post_tag' , 'post' , 'normal' );
+	remove_meta_box( 'submitdiv' , 'post' , 'normal' );
 
 	// *** For pages *** //
-	//remove_meta_box( 'postcustom' , 'page' , 'normal' );
-	//remove_meta_box( 'commentsdiv' , 'page' , 'normal' );
-	//remove_meta_box( 'commentstatusdiv' , 'page' , 'normal' );
-	//remove_meta_box( 'revisionsdiv' , 'page' , 'normal' );
-	//remove_meta_box( 'authordiv' , 'page' , 'normal' );
-	//remove_meta_box( 'pageparentdiv' , 'page' , 'normal' );
-	//remove_meta_box( 'submitdiv' , 'page' , 'normal' );
-	//remove_meta_box( 'postexcerpt' , 'page' , 'normal' );
-}
-
+	remove_meta_box( 'postcustom' , 'page' , 'normal' );
+	remove_meta_box( 'commentsdiv' , 'page' , 'normal' );
+	remove_meta_box( 'commentstatusdiv' , 'page' , 'normal' );
+	remove_meta_box( 'revisionsdiv' , 'page' , 'normal' );
+	remove_meta_box( 'authordiv' , 'page' , 'normal' );
+	remove_meta_box( 'pageparentdiv' , 'page' , 'normal' );
+	remove_meta_box( 'submitdiv' , 'page' , 'normal' );
+	remove_meta_box( 'postexcerpt' , 'page' , 'normal' );
+	}
 add_action('admin_init', 'pands_remove_boxes');
 
 // DISABLE DEFAULT DASHBOARD WIDGETS
@@ -160,13 +157,11 @@ function disable_default_dashboard_widgets() {
 	remove_meta_box('dashboard_recent_drafts', 'dashboard', 'core');
 	remove_meta_box('dashboard_primary', 'dashboard', 'core');
 	remove_meta_box('dashboard_secondary', 'dashboard', 'core');
-}
+	}
 add_action('admin_menu', 'disable_default_dashboard_widgets');
 
 // REMOVE DEFAULT WIDGETS //
 // Un/comment as required
-
-add_action( 'widgets_init', 'my_unregister_widgets' );
 
 function my_unregister_widgets() {
 	unregister_widget( 'WP_Widget_Pages' );
@@ -179,7 +174,8 @@ function my_unregister_widgets() {
 	unregister_widget( 'WP_Widget_Search' );
 	unregister_widget( 'WP_Widget_Tag_Cloud' );
 	unregister_widget( 'WP_Widget_RSS' );
-}
+	}
+add_action( 'widgets_init', 'my_unregister_widgets' );
 
 // REMOVE MENU ITEMS
 // Un/comment as required
@@ -188,22 +184,22 @@ function remove_admin_menus(){
 	remove_menu_page('link-manager.php'); // Links
     remove_menu_page('edit-comments.php'); // Comments
     remove_menu_page('tools.php'); // Tools
-    //remove_menu_page('themes.php'); // Appearence
-	// remove_menu_page('upload.php'); // Media
-    // remove_menu_page('edit.php?post_type=page'); // Pages
-    // remove_menu_page('plugins.php'); // Plugins
-    // remove_menu_page('themes.php'); // Appearance
-    // remove_menu_page('users.php'); // Users
-    // remove_menu_page('options-general.php'); // Settings
+    remove_menu_page('themes.php'); // Appearence
+	remove_menu_page('upload.php'); // Media
+    remove_menu_page('edit.php?post_type=page'); // Pages
+    remove_menu_page('plugins.php'); // Plugins
+    remove_menu_page('themes.php'); // Appearance
+    remove_menu_page('users.php'); // Users
+    remove_menu_page('options-general.php'); // Settings
     }
 add_action('admin_menu', 'remove_admin_menus');
 
 function remove_submenus() {
 	global $submenu;
 	unset($submenu['index.php'][10]); // Removes 'Updates'
-	//unset($submenu['themes.php'][5]); // Removes 'Themes'
-	//unset($submenu['themes.php'][7]); // Removes 'Widgets'
-	//unset($submenu['themes.php'][10]); // Removes 'Menu'
+	unset($submenu['themes.php'][5]); // Removes 'Themes'
+	unset($submenu['themes.php'][7]); // Removes 'Widgets'
+	unset($submenu['themes.php'][10]); // Removes 'Menu'
 	unset($submenu['edit.php'][16]); // Removes 'Tags'
 	unset($submenu['plugins.php'][15]); // Removes 'Plugin editor'
 	unset($submenu['options-general.php'][15]); // Removes 'Writing'
@@ -274,25 +270,27 @@ function wp_threaded_comments($comment, $args, $depth) {
 // MAIN DASHBOARD PANEL
 
 function first_pands_dashboard_widget() { 
-echo '<h3>Hello '.get_bloginfo('name').' user!</h3>
-<p>Fill this with more HTML or PHP.</p>';
-echo '<h3>Hello WordPress user!</h3>
-<p>Write any required messages in here</p>';
- }
+	echo '<h3>Hello '.get_bloginfo('name').' user!</h3>
+	<p>Fill this with more HTML or PHP.</p>';
+	echo '<h3>Hello WordPress user!</h3>
+	<p>Write any required messages in here</p>';
+	}
+
 function add_first_pands_dashboard_widget() {
-  wp_add_dashboard_widget( 'first_pands_dashboard_widget', __( 'Widget Title!' ), 'first_pands_dashboard_widget' );
-}
+	wp_add_dashboard_widget( 'first_pands_dashboard_widget', __( 'Widget Title!' ), 'first_pands_dashboard_widget' );
+	}
 add_action('wp_dashboard_setup', 'add_first_pands_dashboard_widget' );
 
 // SECONDARY DASBOARD PANEL
 
 function second_pands_dashboard_widget() { 
-echo '<h3>Add Blog Article</h3>
-<p>You can drag/ drop this over to the right side.</p>';
- }
+	echo '<h3>Add Blog Article</h3>
+	<p>You can drag/ drop this over to the right side.</p>';
+	}
+
 function add_second_pands_dashboard_widget() {
-  wp_add_dashboard_widget( 'second_pands_dashboard_widget', __( 'HOW TO:' ), 'second_pands_dashboard_widget' );
-}
+	wp_add_dashboard_widget( 'second_pands_dashboard_widget', __( 'HOW TO:' ), 'second_pands_dashboard_widget' );
+	}
 add_action('wp_dashboard_setup', 'add_second_pands_dashboard_widget' );
 
 // ADD FEATURED IMAGES //
@@ -304,21 +302,23 @@ add_image_size('post-secondary-image-thumbnail', 340, 221);
 // ** REMOVE HELP TAB AND TEXT ** //
 
 class RemoveAdminHelpLinkButton {
-  static function on_load() {
-    add_filter('contextual_help',array(__CLASS__,'contextual_help'));
-    add_action('admin_notices',array(__CLASS__,'admin_notices'));
-  }
-  static function contextual_help($contextual_help) {
-    ob_start();
-    return $contextual_help;
-  }
-  static function admin_notices() {
+static function on_load() {
+add_filter('contextual_help',array(__CLASS__,'contextual_help'));
+add_action('admin_notices',array(__CLASS__,'admin_notices'));
+	}
+
+static function contextual_help($contextual_help) {
+	ob_start();
+	return $contextual_help;
+	}
+
+static function admin_notices() {
     echo preg_replace('#<div id="contextual-help-link-wrap".*>.*</div>#Us','',ob_get_clean());
 	echo preg_replace('#<div id="mapp_metabox".*>.*</div>#Us','',ob_get_clean());
   }
 }
-RemoveAdminHelpLinkButton::on_load();
 
+RemoveAdminHelpLinkButton::on_load();
 class RemovePageAttributesHelpText {
   static function on_load() {
     add_action('admin_notices',array(__CLASS__,'admin_notices'));
@@ -337,34 +337,22 @@ RemovePageAttributesHelpText::on_load();
 // ** REMOVE EXCERPT META BOX TEXT ** //
 
 class RemoveUnwantedPageEditingText {
-  static function on_load() {
+static function on_load() {
     add_action('admin_notices',array(__CLASS__,'admin_notices'));
     add_action('dbx_post_sidebar',array(__CLASS__,'dbx_post_sidebar'));
-  }
-  static function admin_notices() {
-    ob_start();
-  }
-  static function dbx_post_sidebar() {
+}
+
+static function admin_notices() {
+	ob_start();
+    }
+
+static function dbx_post_sidebar() {
     $html = str_replace('<p>Need help? Use the Help tab in the upper right of your screen.</p>','',ob_get_clean());
     echo str_replace('Excerpts are optional hand-crafted summaries of your content that can be used in your theme.' .
      ' <a href="http://codex.wordpress.org/Excerpt" target="_blank">Learn more about manual excerpts.</a>','',$html);
   }
 }
 RemoveUnwantedPageEditingText::on_load();
-
-// REMOVE SPECIFIC MENU ITEMS
-
-function remove_menus () {
-global $menu;
-if( (current_user_can('install_themes')) ) { $restricted = array(__('')); } // check if admin and hide these for admins
-else { $restricted = array(__('Links'),__('Settings'), __('Tools')); } // hide these for other roles
-end ($menu);
-while (prev($menu)){
-$value = explode(' ',$menu[key($menu)][0]);
-if(in_array($value[0] != NULL?$value[0]:"" , $restricted)){unset($menu[key($menu)]);}
-}
-}
-add_action('admin_menu', 'remove_menus');
 
 // CHANGE DEFAULT FROM EMAIL ADDRESS
 
