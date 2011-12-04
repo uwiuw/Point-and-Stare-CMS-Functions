@@ -2,7 +2,7 @@
 /*
  Plugin Name: Point and Stare Updater
  Plugin URI: http://pointandstare.com
- Description: This MU plugin will generate an update notice for the Point and Stare CMS Functions plugin when required.
+ Description: This MU plugin will generate an update notice for the Point and Stare plugins when required.
  Version: 0.2
  Author: Lee Rickler
  Author URI: http://pointandstare.com
@@ -78,11 +78,11 @@ function pands_plugin_updates_output() {
 ?>
 	<div class="wrap">
     <div class="icon32" id="icon-options-general"><br></div>
-    <h2>Point and Stare Plugin Updates</h2>
+    <h2>Point and Stare CMS Functions Updates</h2>
 <?php    
 	if($plugin_update['current_version'] < $plugin_update['new_version']){
 		echo '<div id="message" class="updated fade">
-			<p><strong>There is a new version of the Point and Stare CMS Plugin available</strong>. You have version ' . $plugin_update['current_version'] . ' installed.  Update to ' . $plugin_update['new_version'] . '.</p>
+			<p><strong>There is a new version of the Point and Stare CMS Functions Plugin available</strong>. You have version ' . $plugin_update['current_version'] . ' installed.  Update to ' . $plugin_update['new_version'] . '.</p>
 			</div>
 			<p>Download the new version and install manually via FTP:</p>
 			<p><a class="button" href="https://github.com/PointandStare/Point-and-Stare-CMS-Functions/zipball/master">Download Point and Stare CMS Functions Plugin ' . $plugin_update['new_version'] . '</a></p>
@@ -92,11 +92,9 @@ function pands_plugin_updates_output() {
 	}
 	else{
 ?>
-    <h3>You have the latest version of the Point and Stare CMS Plugin.</h3>
+    <h3>You have the latest version of the Point and Stare CMS Functions Plugin.</h3>
     </div>
 <?php
-	}
-	
+	}	
 }
-
 ?>
