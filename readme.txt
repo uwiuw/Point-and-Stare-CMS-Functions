@@ -1,5 +1,4 @@
-Point and Stare CMS functions WordPress plugin
-This WordPress MU plugin will generate special functions that help convert your WordPress install into a CMS, add security, white label and SEO functions and facilities.
+This MU plugin will generate special functions that help convert your WordPress install into a CMS, add security and generally white label the admin.
 
 Simply add to your WordPress theme's MU folder (or create one) then go to Settings > PandS CMS Functions
 
