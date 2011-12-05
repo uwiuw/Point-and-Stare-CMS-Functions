@@ -3,7 +3,7 @@
  Plugin Name: Point and Stare CMS Functions
  Plugin URI: https://github.com/PointandStare/Point-and-Stare-CMS-Functions
  Description: This MU plugin will generate special functions that help convert your WordPress install into a CMS, add security and generally white label the admin.
- Version: 2.0
+ Version: 2.0.1
  Author: Lee Rickler
  Author URI: http://pointandstare.com
  
@@ -21,11 +21,11 @@ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 // add the admin options page
 add_action('admin_menu', 'pands_script_add_page');
-function pands_script_add_page() {
-add_options_page('PandS CMS', 'PandS CMS Functions', 'manage_options', 'pands-script', 'pands_script_page');
+	function pands_script_add_page() {
+	add_options_page('PandS CMS', 'PandS CMS Functions', 'manage_options', 'pands-script', 'pands_script_page');
 }
 add_action( 'admin_init', 'pands_script_admin_init' );
-function pands_script_admin_init() {
+	function pands_script_admin_init() {
 	register_setting( 'pands_script_options', 'pands_script_plugin_options');
 }
 
@@ -115,13 +115,13 @@ input.checkbox {
 <?php settings_fields('pands_script_options'); ?>
 <?php $options = get_option('pands_script_plugin_options'); ?>
 <div id="tabs-pands-script">
-	<ul>
-		<li><a href="#tabs-pands-admin" title="Use these fields to personalise the login page and admin area">General settings</a></li>
-		<li id="pands-dashboard" title="You can remove widgets and add your own panels using these options"><a href="#tabs-pands-dashboard">Custom dashboard settings</a></li>
-		<li title="Keep the write pages to a minimal by reducing clutter"><a href="#tabs-pands-pages-posts">Pages &amp; Posts</a></li>
-		<li title="If you need to stop your client adding a ton of widgets, switch them off here"><a href="#tabs-pands-widgets">Widgets</a></li>
-		<li title="Use these options to change elements on the front end of the website"><a href="#tabs-pands-front-end">Front end</a></li>
-	</ul>
+<ul>
+	<li><a href="#tabs-pands-admin" title="Use these fields to personalise the login page and admin area">General settings</a></li>
+	<li id="pands-dashboard" title="You can remove widgets and add your own panels using these options"><a href="#tabs-pands-dashboard">Custom dashboard settings</a></li>
+	<li title="Keep the write pages to a minimal by reducing clutter"><a href="#tabs-pands-pages-posts">Pages &amp; Posts</a></li>
+	<li title="If you need to stop your client adding a ton of widgets, switch them off here"><a href="#tabs-pands-widgets">Widgets</a></li>
+	<li title="Use these options to change elements on the front end of the website"><a href="#tabs-pands-front-end">Front end</a></li>
+</ul>
 	<input name="Submit" class="button-primary" type="submit" value="<?php esc_attr_e('Save Changes'); ?>" /><br />
 <div id="tabs-pands-admin">
 	<h3>Use these fields to personalise the login page and admin area.</h3>
@@ -130,15 +130,15 @@ input.checkbox {
     <td class="panel-title" colspan="2">Custom login page</td>
 </tr>
 <tr>
-	<th scope="row">Change the Login logo<br /><span class="th-small">Default is the WordPress logo - 310px x 70px</span></th>
+	<td>Change the Login logo<br /><span class="th-small">Default is the WordPress logo - 310px x 70px</span></td>
     <td><input class="ui-widget-text" name="pands_script_plugin_options[custom_admin_header_logo]" type="text" value="<?php echo $options['custom_admin_header_logo']; ?>" /></td>
 </tr>
 <tr>
-    <th scope="row">Login logo link<br /><span class="th-small">Only change this if required - default is your site URL</span></th>
+    <td>Login logo link<br /><span class="th-small">Only change this if required - default is your site URL</span></td>
     <td><input class="ui-widget-text" name="pands_script_plugin_options[custom_admin_login_header_link]" type="text" value="<?php echo $options['custom_admin_login_header_link']; ?>" /></td>
 </tr>
 <tr>
-    <th scope="row">Login page logo Alt text<br /><span class="th-small">Change this to your company strapline</span></th>
+    <td>Login page logo Alt text<br /><span class="th-small">Change this to your company strapline</span></td>
     <td><input class="ui-widget-text" name="pands_script_plugin_options[custom_admin_login_header_link_alt_text]" type="text" value="<?php echo $options['custom_admin_login_header_link_alt_text']; ?>" /></td>
 </tr>
 </table>
@@ -147,10 +147,11 @@ input.checkbox {
     <td class="panel-title" colspan="2">Global Admin area</td>
 </tr>
 <tr>
-    <th scope="row" title="Change the Admin page title">Admin page title</th>
+    <td title="Change the Admin page title">Admin page title</td>
     <td><input class="ui-widget-text" name="pands_script_plugin_options[admin_title]" type="text" value="<?php echo $options['admin_title']; ?>" /></td>
 </tr>
 <!-- 
+// NEED TO REVISIT THIS
 <tr>
     <th scope="row">Admin Favicon url<br /><span class="th-small">Only change this if required, default is to your site URL</span></th>
     <td><input class="ui-widget-text" name="pands_script_plugin_options[admin_favicon_url]" type="text" value="<?php echo $options['admin_favicon_url']; ?>" /></td>
@@ -185,7 +186,7 @@ input.checkbox {
     <td><input name="pands_script_plugin_options[tools_menu_item]" type="checkbox" value="1" <?php checked('1', $options['tools_menu_item']); ?> /></td>
 </tr>
 <tr>
-    <td>Appearence</td>
+    <td>Appearance</td>
     <td><input name="pands_script_plugin_options[themes_menu_item]" type="checkbox" value="1" <?php checked('1', $options['themes_menu_item']); ?> /></td>
 </tr>
 <tr>
@@ -205,9 +206,9 @@ input.checkbox {
     <td><input name="pands_script_plugin_options[users_menu_item]" type="checkbox" value="1" <?php checked('1', $options['users_menu_item']); ?> /></td>
 </tr>
 <tr>
-     <td>Settings</td>
-     <td><input name="pands_script_plugin_options[options-general_menu_item]" type="checkbox" value="1" <?php checked('1', $options['options-general_menu_item']); ?> /> 
-    </td>
+	<td>Settings</td>
+	<td><input name="pands_script_plugin_options[options-general_menu_item]" type="checkbox" value="1" <?php checked('1', $options['options-general_menu_item']); ?> /> 
+	</td>
 </tr>
 </table>
 <table class="pands-cms-options-table">
@@ -293,99 +294,114 @@ input.checkbox {
 <tr>
     <th colspan="2" class="th-small">Replace them with your own panels below</th>
 </tr>
-<tr><td>Right now</td>
+<tr>
+	<td>Right now</td>
     <td><input name="pands_script_plugin_options[dashboard_right_now]" type="checkbox" value="1" <?php checked('1', $options['dashboard_right_now']); ?> /></td>
 </tr>    
-<tr><td>Recent comments</td>
+<tr>
+	<td>Recent comments</td>
     <td><input name="pands_script_plugin_options[dashboard_recent_comments]" type="checkbox" value="1" <?php checked('1', $options['dashboard_recent_comments']); ?> /></td>
 </tr>
-    
-<tr><td>Incoming links</td>
+<tr>
+	<td>Incoming links</td>
     <td><input name="pands_script_plugin_options[dashboard_incoming_links]" type="checkbox" value="1" <?php checked('1', $options['dashboard_incoming_links']); ?> /></td>
-    </tr>
-    
-    <tr><td>Plugins</td>
+</tr>
+<tr>
+	<td>Plugins</td>
     <td><input name="pands_script_plugin_options[dashboard_plugins]" type="checkbox" value="1" <?php checked('1', $options['dashboard_plugins']); ?> /></td>
-    </tr>
-    
-    <tr><td>Quick press</td>
+</tr>
+<tr>
+	<td>Quick press</td>
     <td><input name="pands_script_plugin_options[dashboard_quick_press]" type="checkbox" value="1" <?php checked('1', $options['dashboard_quick_press']); ?> /></td>
-    </tr>
-    
-    <tr><td>Recent drafts</td>
+</tr>
+<tr>
+	<td>Recent drafts</td>
     <td><input name="pands_script_plugin_options[dashboard_recent_drafts]" type="checkbox" value="1" <?php checked('1', $options['dashboard_recent_drafts']); ?> /></td>
-    </tr>
-    
+</tr>
 <tr>
 	<td>WordPress news</td>
     <td><input name="pands_script_plugin_options[dashboard_primary]" type="checkbox" value="1" <?php checked('1', $options['dashboard_primary']); ?> /></td>
 </tr>
-
 <tr>
 	<td>Other WordPress news</td>
     <td><input name="pands_script_plugin_options[dashboard_secondary]" type="checkbox" value="1" <?php checked('1', $options['dashboard_secondary']); ?> /></td>
 </tr>
-    
     </table>
     <table class="pands-cms-options-table">
 <tr>
     <td class="panel-title" colspan="2">Add custom dashboard panels</td>
 </tr>
-<tr><td colspan="2">
-    <table border="1">
-<tr><td>Use Welcome panel</td>
+<tr>
+	<td colspan="2">
+<table border="1">
+<tr>
+	<td>Use Welcome panel</td>
     <td><input name="pands_script_plugin_options[add_first_pands_dashboard_widget]" type="checkbox" value="1" <?php checked('1', $options['add_first_pands_dashboard_widget']); ?> /></td>
 </tr>
-  <tr>
+<tr>
     <td>Title</td>
     <td><input name="pands_script_plugin_options[main_dashboard_title]" type="text" value="<?php echo $options['main_dashboard_title']; ?>" /></td>
-  </tr>
-  <tr>
+</tr>
+<tr>
     <td style="vertical-align:top">Content</td>
     <td><textarea name="pands_script_plugin_options[main_dashboard_body]" cols="50" rows="10"><?php echo $options['main_dashboard_body']; ?></textarea></td>
-  </tr></table></td></tr>
-    <tr><td colspan="2"><table border="1">
-  <tr>
+</tr>
+</table>
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+<table border="1">
+<tr>
     <td>Use 'How to' panel</td>
     <td><input name="pands_script_plugin_options[add_second_pands_dashboard_widget]" type="checkbox" value="1" <?php checked('1', $options['add_second_pands_dashboard_widget']); ?> /></td>
-  </tr>
-  <tr>
+</tr>
+<tr>
     <td>Title</td>
     <td><input name="pands_script_plugin_options[secondary_dashboard_title]" type="text" value="<?php echo $options['secondary_dashboard_title']; ?>" /></td>
-  </tr>
-  <tr>
+</tr>
+<tr>
     <td style="vertical-align:top">Content</td>
     <td><textarea name="pands_script_plugin_options[secondary_dashboard_body]" cols="50" rows="10"><?php echo $options['secondary_dashboard_body']; ?></textarea></td>
-  </tr></table></td></tr>
+</tr>
 </table>
-	</div>
+	</td>
+</tr>
+</table>
+</div>
 <div id="tabs-pands-pages-posts">
 <h3>Keep the write pages to a minimal by reducing clutter</h3>
- <table class="pands-cms-options-table">
- <tr>
-    <td class="panel-title" colspan="2">Remove write page furniture</td>
-    </tr>
-  <tr>
+<table class="pands-cms-options-table">
+<tr>
+	<td class="panel-title" colspan="2">Remove write page furniture</td>
+</tr>
+<tr>
     <th colspan="2">For Posts</th>
-  </tr>
-  <tr><td>Custom Fields</td>
-    <td><input name="pands_script_plugin_options[postcustom_post]" type="checkbox" value="1" <?php checked('1', $options['postcustom_post']); ?> /></td></tr>
-     
-    <tr><td>Excerpt</td>
-    <td><input name="pands_script_plugin_options[postexcerpt_post]" type="checkbox" value="1" <?php checked('1', $options['postexcerpt_post']); ?> /></td></tr>
-    
-    <tr><td>Send Trackbacks</td>
-     <td><input name="pands_script_plugin_options[trackbacksdiv_post]" type="checkbox" value="1" <?php checked('1', $options['trackbacksdiv_post']); ?> /></td></tr>
-     
-    <tr><td>Discussions</td>
-    <td><input name="pands_script_plugin_options[commentstatusdiv_post]" type="checkbox" value="1" <?php checked('1', $options['commentstatusdiv_post']); ?> /></td></tr>
-      
-      <tr><td>Revisions</td>
-      <td><input name="pands_script_plugin_options[revisionsdiv_post]" type="checkbox" value="1" <?php checked('1', $options['revisionsdiv_post']); ?> /></td></tr>
-   
-<tr>   <td>Author</td>
-  <td><input name="pands_script_plugin_options[authordiv_post]" type="checkbox" value="1" <?php checked('1', $options['authordiv_post']); ?> /></td></tr>
-   
+</tr>
+<tr>
+	<td>Custom Fields</td>
+    <td><input name="pands_script_plugin_options[postcustom_post]" type="checkbox" value="1" <?php checked('1', $options['postcustom_post']); ?> /></td>
+</tr>
+<tr>
+	<td>Excerpt</td>
+    <td><input name="pands_script_plugin_options[postexcerpt_post]" type="checkbox" value="1" <?php checked('1', $options['postexcerpt_post']); ?> /></td>
+</tr>
+<tr>
+	<td>Send Trackbacks</td>
+     <td><input name="pands_script_plugin_options[trackbacksdiv_post]" type="checkbox" value="1" <?php checked('1', $options['trackbacksdiv_post']); ?> /></td>
+</tr>
+<tr>
+	<td>Discussions</td>
+    <td><input name="pands_script_plugin_options[commentstatusdiv_post]" type="checkbox" value="1" <?php checked('1', $options['commentstatusdiv_post']); ?> /></td>
+</tr>
+<tr>
+	<td>Revisions</td>
+      <td><input name="pands_script_plugin_options[revisionsdiv_post]" type="checkbox" value="1" <?php checked('1', $options['revisionsdiv_post']); ?> /></td>
+</tr>
+<tr>
+	<td>Author</td>
+	<td><input name="pands_script_plugin_options[authordiv_post]" type="checkbox" value="1" <?php checked('1', $options['authordiv_post']); ?> /></td>
+</tr>
 <tr>
 	<td>Category</td>
 	<td><input name="pands_script_plugin_options[categorydiv_post]" type="checkbox" value="1" <?php checked('1', $options['categorydiv_post']); ?> /></td>
@@ -398,116 +414,122 @@ input.checkbox {
 	<td>Publish</td>
 	<td><input name="pands_script_plugin_options[submitdiv_post]" type="checkbox" value="1" <?php checked('1', $options['submitdiv_post']); ?> /></td>
 </tr>
-  
-  <tr><td>Custom Fields</td>
-    <td><input name="pands_script_plugin_options[postcustom_page]" type="checkbox" value="1" <?php checked('1', $options['postcustom_page']); ?> /></td></tr>
-    </table>
-    
-    <table class="pands-cms-options-table">
+<tr>
+	<td>Custom Fields</td>
+    <td><input name="pands_script_plugin_options[postcustom_page]" type="checkbox" value="1" <?php checked('1', $options['postcustom_page']); ?> /></td>
+</tr>
+</table>
+<table class="pands-cms-options-table">
     <th colspan="2">For Pages</th>
-    <tr><td>Excerpt</td>
+<tr>
+	<td>Excerpt</td>
     <td><input checked="checked" name="pands_script_plugin_options[postexcerpt_page]"
     type="checkbox"
-    value="1" <?php checked('1', $options['postexcerpt_page']); ?> /></td></tr>
-    
-    <tr><td>Page Attributes</td>
- <td><input name="pands_script_plugin_options[pageparentdiv_page]" type="checkbox" value="1" <?php checked('1', $options['pageparentdiv_page']); ?> /></td></tr>
-   
-   <tr><td>Discussions</td>
-  <td><input class="checkbox" name="pands_script_plugin_options[commentstatusdiv_page]" type="checkbox" value="1" <?php checked('1', $options['commentstatusdiv_page']); ?> /></td></tr>
-
-<tr><td>Revisions</td>
- <td><input name="pands_script_plugin_options[revisionsdiv_page]" type="checkbox" value="1" <?php checked('1', $options['revisionsdiv_page']); ?> /></td></tr>
- 
- <tr><td>Author</td>
- <td><input name="pands_script_plugin_options[authordiv_page]" type="checkbox" value="1" <?php checked('1', $options['authordiv_page']); ?> /></td></tr>
-
-<tr><td>Comments</td>
-  <td><input name="pands_script_plugin_options[commentsdiv_page]" type="checkbox" value="1" <?php checked('1', $options['commentsdiv_page']); ?> /></td></tr>
-  
-  <tr><td>Publish</td>
-  <td><input name="pands_script_plugin_options[submitdiv_page]" type="checkbox" value="1" <?php checked('1', $options['submitdiv_page']); ?> /></td>
- </td>
-  </tr>
+    value="1" <?php checked('1', $options['postexcerpt_page']); ?> /></td>
+</tr>
+<tr>
+	<td>Page Attributes</td>
+	<td><input name="pands_script_plugin_options[pageparentdiv_page]" type="checkbox" value="1" <?php checked('1', $options['pageparentdiv_page']); ?> /></td>
+</tr>
+<tr>
+	<td>Discussions</td>
+	<td><input class="checkbox" name="pands_script_plugin_options[commentstatusdiv_page]" type="checkbox" value="1" <?php checked('1', $options['commentstatusdiv_page']); ?> /></td>
+</tr>
+<tr>
+	<td>Revisions</td>
+	<td><input name="pands_script_plugin_options[revisionsdiv_page]" type="checkbox" value="1" <?php checked('1', $options['revisionsdiv_page']); ?> /></td>
+</tr>
+<tr>
+	<td>Author</td>
+	<td><input name="pands_script_plugin_options[authordiv_page]" type="checkbox" value="1" <?php checked('1', $options['authordiv_page']); ?> /></td>
+</tr>
+<tr>
+	<td>Comments</td>
+	<td><input name="pands_script_plugin_options[commentsdiv_page]" type="checkbox" value="1" <?php checked('1', $options['commentsdiv_page']); ?> /></td>
+</tr>
+<tr>
+	<td>Publish</td>
+	<td><input name="pands_script_plugin_options[submitdiv_page]" type="checkbox" value="1" <?php checked('1', $options['submitdiv_page']); ?> /></td>
+	</td>
+</tr>
 </table></div>
 <div id="tabs-pands-widgets">
-
-
 <table class="pands-cms-options-table">
 <h3>If you need to stop your client adding a ton of widgets, switch them off here.</h3>
 <tr>
     <td class="panel-title" colspan="2">Remove Default Widgets</td>
-    </tr>
-    <tr>
+</tr>
+<tr>
     <th colspan="2" class="th-small">Stop your client from adding too many widgets by turning them off.</th>
-    </tr>
-    
-    <tr><td>Archives</td>
+</tr>
+<tr>
+	<td>Archives</td>
     <td><input name="pands_script_plugin_options[WP_Widget_Archives]" type="checkbox" value="1" <?php checked('1', $options['WP_Widget_Archives']); ?> /></td>
-    </tr>
-    
-    <tr><td>Calendar</td>
+</tr>    
+<tr>
+	<td>Calendar</td>
     <td><input name="pands_script_plugin_options[WP_Widget_Calendar]" type="checkbox" value="1" <?php checked('1', $options['WP_Widget_Calendar']); ?> /></td>
-    </tr> 
-    
-     <tr><td>Categories</td>
+</tr> 
+<tr>
+	<td>Categories</td>
     <td><input name="pands_script_plugin_options[WP_Widget_Categories]" type="checkbox" value="1" <?php checked('1', $options['WP_Widget_Categories']); ?> /></td>
-    </tr>
-    
-    <tr><td>Custom Menu</td>
+</tr>
+<tr>
+	<td>Custom Menu</td>
     <td><input name="pands_script_plugin_options[WP_Nav_Menu_Widget]" type="checkbox" value="1" <?php checked('1', $options['WP_Nav_Menu_Widget']); ?> /></td>
-    </tr>
-    
-    <tr><td>Links</td>
+</tr>
+<tr>
+	<td>Links</td>
     <td><input name="pands_script_plugin_options[WP_Widget_Links]" type="checkbox" value="1" <?php checked('1', $options['WP_Widget_Links']); ?> /></td>
-    </tr>
-    
-    <tr><td>Meta</td>
+</tr>    
+<tr>
+	<td>Meta</td>
     <td><input name="pands_script_plugin_options[WP_Widget_Meta]" type="checkbox" value="1" <?php checked('1', $options['WP_Widget_Meta']); ?> /></td>
-    </tr>
-    
-    <tr><td>Pages</td>
+</tr>
+<tr>
+	<td>Pages</td>
     <td><input name="pands_script_plugin_options[WP_Widget_Pages]" type="checkbox" value="1" <?php checked('1', $options['WP_Widget_Pages']); ?> /></td>
-    </tr>
-    
-    <tr><td>Recent comments</td>
+</tr>
+<tr>
+	<td>Recent comments</td>
     <td><input name="pands_script_plugin_options[WP_Widget_Recent_Comments]" type="checkbox" value="1" <?php checked('1', $options['WP_Widget_Recent_Comments']); ?> /></td>
-    </tr>
-    
-    <tr><td>Recent posts</td>
-    <td><input name="pands_script_plugin_options[WP_Widget_Recent_Posts]" type="checkbox" value="1" <?php checked('1', $options['WP_Widget_Recent_Posts']); ?> /></td>
-    </tr>
-    
-    <tr><td>RSS</td>
+</tr>
+<tr>
+	<td>Recent posts</td>
+	<td><input name="pands_script_plugin_options[WP_Widget_Recent_Posts]" type="checkbox" value="1" <?php checked('1', $options['WP_Widget_Recent_Posts']); ?> /></td>
+</tr>
+<tr>
+	<td>RSS</td>
     <td><input name="pands_script_plugin_options[WP_Widget_RSS]" type="checkbox" value="1" <?php checked('1', $options['WP_Widget_RSS']); ?> /></td>
-    </tr>
+</tr>
     
-    <tr><td>Search</td>
+<tr>
+	<td>Search</td>
     <td><input name="pands_script_plugin_options[WP_Widget_Search]" type="checkbox" value="1" <?php checked('1', $options['WP_Widget_Search']); ?> /></td>
-    </tr>
-    
-    <tr><td>Tag cloud</td>
+</tr>
+<tr>
+	<td>Tag cloud</td>
     <td><input name="pands_script_plugin_options[WP_Widget_Tag_Cloud]" type="checkbox" value="1" <?php checked('1', $options['WP_Widget_Tag_Cloud']); ?> /></td>
-    </tr>
-    
-    <tr><td>Text</td>
+</tr>    
+<tr>
+    <td>Text</td>
     <td><input name="pands_script_plugin_options[WP_Widget_Text]" type="checkbox" value="1" <?php checked('1', $options['WP_Widget_Text']); ?> /></td>
-    </tr>
+</tr>
     </table></div>
 <div id="tabs-pands-front-end">
 <h3>Use these options to change elements on the front end of the website.</h3>
 <table class="pands-cms-options-table">
 <tr>
     <td class="panel-title" colspan="2">Visible front end</td>
-  </tr>
+</tr>
 <tr>
     <td>Remove v3 admin bar<br /><span class="th-small">Removes the enforced admin bar across the top.<br />We don't want to spoil your lovely design, now, do we?</span></td>
     <td><input name="pands_script_plugin_options[remove_admin_bar]" type="checkbox" value="1" <?php checked('1', $options['remove_admin_bar']); ?> /></td>
-  </tr>
-  <tr>
+</tr>
+<tr>
     <td>Site wide favicon<br /><span class="th-small">Absolute path to a 16px x 16px icon</span></td>
     <td><input class="ui-widget-text" name="pands_script_plugin_options[blog_favicon]" type="text" value="<?php echo $options['blog_favicon']; ?>" /></td>
-  </tr>
+</tr>
 </table>
 <br />
 <table class="pands-cms-options-table">
@@ -515,50 +537,50 @@ input.checkbox {
     <td class="panel-title" colspan="2">Remove header meta tags</td>
   </tr>
   <tr>
-    <th scope="row">Remove RSD Link</th>
+    <td>Remove RSD Link</td>
     <td><input name="pands_script_plugin_options[remove_rsd_link]" type="checkbox" value="1" <?php checked('1', $options['remove_rsd_link']); ?> /></td>
   </tr>
   <tr>
-    <th scope="row">Remove site and comments RSS feeds</th>
+    <td>Remove site and comments RSS feeds</td>
     <td><input name="pands_script_plugin_options[remove_feed_links]" type="checkbox" value="1" <?php checked('1', $options['remove_feed_links']); ?> /></td>
   </tr>
    <tr>
-    <th scope="row">Remove WP Generator meta tag</th>
+    <td>Remove WP Generator meta tag</td>
     <td><input name="pands_script_plugin_options[remove_wp_generator]" type="checkbox" value="1" <?php checked('1', $options['remove_wp_generator']); ?> /></td>
   </tr>
    <tr>
-    <th scope="row">Remove Index relation links</th>
-    <td><input name="pands_script_plugin_options[remove_index_rel_link]" type="checkbox" value="1" <?php checked('1', $options['remove_index_rel_link']); ?> /> </td>
+    <td>Remove Index relation links</td>
+    <td><input name="pands_script_plugin_options[remove_index_rel_link]" type="checkbox" value="1" <?php checked('1', $options['remove_index_rel_link']); ?> /></td>
   </tr>
    <tr>
-    <th scope="row">Remove Post relation links - start</th>
+    <td>Remove Post relation links - start</td>
     <td><input name="pands_script_plugin_options[remove_start_post_rel_link]" type="checkbox" value="1" <?php checked('1', $options['remove_start_post_rel_link']); ?> /></td>
   </tr>
    <tr>
-    <th scope="row">Remove Post relation links - Parent</th>
+    <td>Remove Post relation links - Parent</td>
     <td><input name="pands_script_plugin_options[remove_parent_post_rel_link]" type="checkbox" value="1" <?php checked('1', $options['parent_post_rel_link']); ?> /></td>
   </tr>
    <tr>
-    <th scope="row">Remove Post relation links from wp-head</th>
+    <td>Remove Post relation links from wp-head</td>
     <td><input name="pands_script_plugin_options[remove_adjacent_posts_rel_link_wp_head]" type="checkbox" value="1" <?php checked('1', $options['adjacent_posts_rel_link_wp_head']); ?> /></td>
   </tr>
    <tr>
-    <th scope="row">Remove extra feed links</th>
+    <td>Remove extra feed links</td>
     <td><input name="pands_script_plugin_options[remove_feed_links_extra]" type="checkbox" value="1" <?php checked('1', $options['remove_feed_links_extra']); ?> /></td>
   </tr>
  <tr>
-    <th scope="row">Remove WLW tag</th>
+    <td>Remove WLW tag</td>
     <td><input name="pands_script_plugin_options[remove_wlwmanifest_link]" type="checkbox" value="1" <?php checked('1', $options['remove_wlwmanifest_link']); ?> /></td>
   </tr>
   <tr>
     <td class="panel-title" colspan="2">Add dev elements</td>
   </tr>
    <tr>
-    <th scope="row">JQuery Path<br /><span class="th-small">Add the absolute path of your prefered JQuery file.<br />Defaults to jQuery JavaScript Library v1.7 hosted by Google</span></th>
+    <td>JQuery Path<br /><span class="th-small">Add the absolute path of your prefered JQuery file.<br />Defaults to jQuery JavaScript Library v1.7 hosted by Google</span></td>
     <td><input class="ui-widget-text" name="pands_script_plugin_options[jquery_path]" type="text" value="<?php echo $options['jquery_path']; ?>" /></td>
   </tr>
   <tr>
-    <th scope="row">Google analytics<br /><span class="th-small">Only add the ID - UA-XXXXXX-XX</span></th>
+    <td>Google analytics<br /><span class="th-small">Only add the ID - UA-XXXXXX-XX</span></td>
     <td><input name="pands_script_plugin_options[google_analytics_number]" type="text" value="<?php echo $options['google_analytics_number']; ?>" /></td>
   </tr>
 </table>
@@ -745,7 +767,7 @@ $options = get_option('pands_script_plugin_options');
 	if ($options['link-manager_menu_item'] == 1) remove_menu_page('link-manager.php'); // Links
     if ($options['edit-comments_menu_item'] == 1) remove_menu_page('edit-comments.php'); // Comments
     if ($options['tools_menu_item'] == 1) remove_menu_page('tools.php'); // Tools
-    if ($options['themes_menu_item'] == 1) remove_menu_page('themes.php'); // Appearence
+    if ($options['themes_menu_item'] == 1) remove_menu_page('themes.php'); // Appearance
 	if ($options['upload_menu_item'] == 1) remove_menu_page('upload.php'); // Media
     if ($options['edit_menu_item'] == 1) remove_menu_page('edit.php?post_type=page'); // Pages
     if ($options['plugins_menu_item'] == 1) remove_menu_page('plugins.php'); // Plugins
