@@ -129,7 +129,6 @@ function pands_all_hooks() {
 
 //main loader
 add_action('plugins_loaded', 'pands_all_hooks');
-
 function pands_script_add_page() {
     add_options_page('PandS CMS', 'PandS CMS Functions', 'manage_options', UW_P_SLUG, 'pands_script_page');
 

@@ -1,4 +1,4 @@
-o<div>
+<div>
     <h2>Point and Stare CMS functions WordPress plugin</h2>
     <h3>This MU plugin will generate special functions that help convert your WordPress install into a CMS, add security and generally white label the admin.</h3>
     <p>Simply choose the options required, below, and click save to see changes.<br />I welcome further suggestions, corrections or simply a better way of doing stuff, so feel free to <a href="mailto:lee@pointandstare.com">email</a> or <a href="https://github.com/PointandStare/Point-and-Stare-CMS-Functions" target="_blank">fork</a>.</p>
