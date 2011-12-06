@@ -13,17 +13,15 @@
 
 // TO REMOVE THIS FROM YOUR SETTINGS MENU SIMPLY UNCOMMENT THIS LITTLE LOT
 //function delete_submenu_items() {
-//    remove_submenu_page('options-general.php', UW_P_SLUG);
+//    remove_submenu_page('options-general.php', 'pands-script);
 //
 //}
 //add_action('admin_init', 'delete_submenu_items');
 // add the admin options page
 
-define('UW_P_SLUG', 'pands-script');
-
 function isWeOnOurPage() {
     $page = $_GET['page'];
-    if ($page === UW_P_NAME) {
+    if ($page === 'pands-script') {
         return true;
     }
 
@@ -129,8 +127,9 @@ function pands_all_hooks() {
 
 //main loader
 add_action('plugins_loaded', 'pands_all_hooks');
+
 function pands_script_add_page() {
-    add_options_page('PandS CMS', 'PandS CMS Functions', 'manage_options', UW_P_SLUG, 'pands_script_page');
+    add_options_page('PandS CMS', 'PandS CMS Functions', 'manage_options', 'pands-script', 'pands_script_page');
 
 }
 
@@ -189,7 +188,7 @@ function pands_custom_admin_logo() {
 function my_custom_login_logo() {
     $options = get_option('pands_script_plugin_options');
     if ($options['custom_admin_header_logo'] == "") {
-
+        
     } else {
         echo '<style type="text/css"> h1 a { background-image:url(' . $options['custom_admin_header_logo'] . '/images/YOUR_MAIN_LOGO.png) !important; } </style>';
     }
@@ -429,7 +428,7 @@ function wp_threaded_comments($comment, $args, $depth) {
             <span class="ct-date"><?php printf(__('%1$s at %2$s', ''), get_comment_date(), get_comment_time()); ?></span>
             <div class="ct-text clearfix" id="comment-<?php comment_ID() ?>">
                 <?php comment_text(); ?>
-                <?php if ($comment->comment_approved == '0'): ?><p class="warning"><?php _e('Your comment is awaiting moderation.', 'mystique'); ?></p><?php endif; ?>
+                    <?php if ($comment->comment_approved == '0'): ?><p class="warning"><?php _e('Your comment is awaiting moderation.', 'mystique'); ?></p><?php endif; ?>
                 <div class="clearfix">
                     <?php
                     if (function_exists('comment_reply_link')) {
@@ -542,6 +541,6 @@ function wp_threaded_comments($comment, $args, $depth) {
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
         </script>
-    <?php
+        <?php
 
-}
+    }
