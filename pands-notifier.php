@@ -102,4 +102,3 @@ function pands_plugin_updates_output() {
     }
 
 }
-?>
