@@ -5,9 +5,9 @@ This MU plugin will generate special functions that help convert your WordPress
 install into a CMS, add security and generally white label the admin.
 
 <h3>DESCRIPTION</h3>
-This plugin is easy to custom and develope further for any plugin developer.
-This plugin a good start for theme developer cause its provide a skeleton for any
-decent option theme.
+This plugin is easy to custom and develope further for any plugin developer.<br/>
+This plugin is also good for theme developer cause its provide a skeleton for any
+decent option theme.<br/>
 
 Simply add to your WordPress theme's MU folder (or create one) then go to Settings > PandS CMS Functions
 
@@ -16,5 +16,7 @@ If you want to be informed when the plugin is updated also install the pands-not
 This step is totally optional.
 
 <h3>TODO</h3>
-Where is the rollback button ?
-Seperate of concern ?
+<ol>
+<li>Where is the rollback button ?</li>
+<li>Seperate of concern ?</li>
+</ol>

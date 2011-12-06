@@ -13,17 +13,125 @@
 
 // TO REMOVE THIS FROM YOUR SETTINGS MENU SIMPLY UNCOMMENT THIS LITTLE LOT
 //function delete_submenu_items() {
-//    remove_submenu_page('options-general.php', 'pands-script');
+//    remove_submenu_page('options-general.php', UW_P_SLUG);
 //
 //}
-
 //add_action('admin_init', 'delete_submenu_items');
 // add the admin options page
-add_action('admin_menu', 'pands_script_add_page');
-add_action('admin_init', 'pands_script_admin_init');
+
+define('UW_P_SLUG', 'pands-script');
+
+function isWeOnOurPage() {
+    $page = $_GET['page'];
+    if ($page === UW_P_NAME) {
+        return true;
+    }
+
+    return false;
+
+}
+
+function pands_all_hooks() {
+
+    $options = get_option('pands_script_plugin_options');
+    if (defined('WP_ADMIN')) {
+        add_action('admin_init', 'pands_script_admin_init');
+        add_action('admin_init', 'pands_remove_boxes');
+
+        //all admin-page-rendering-related hook
+        add_filter('admin_title', 'pands_admin_title');
+        add_action('admin_head', 'pands_custom_admin_logo');
+        add_filter('admin_footer_text', 'modify_footer_admin');
+        if ($options['footer_ver'] != "") {
+            add_filter('update_footer', 'change_footer_version', 9999);
+        }
+
+        //all menu-related hook
+        add_action('admin_menu', 'pands_script_add_page');
+        add_action('admin_menu', 'disable_default_dashboard_widgets');
+        add_action('admin_menu', 'remove_admin_menus');
+        add_action('admin_menu', 'remove_submenus');
+
+        //backend page coolums
+        add_filter('manage_pages_columns', 'custom_pages_columns');
+
+        if (isWeOnOurPage()) {
+            /**
+             * initiate jquery only on our page
+             */
+            wp_enqueue_script('jquery');
+            wp_enqueue_script('jquery-ui-core');
+            wp_enqueue_script('jquery-ui-tabs');
+
+            wp_deregister_script('jquery');
+            if ($options['jquery_path'] != "") {
+                wp_register_script('jquery', ($options['jquery_path']), false);
+            } else {
+                wp_register_script('jquery', ("https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"), true);
+            }
+            wp_enqueue_script('jquery');
+        }
+
+        if ($options['change_howdy'] != "") {
+            add_filter('gettext', 'change_howdy', 10, 3);
+        }
+        /**
+         * @todo make this operation only happen in dashboard
+         */
+        if ($options['add_first_pands_dashboard_widget'] == 1) {
+            add_action('wp_dashboard_setup', 'add_first_pands_dashboard_widget');
+        }
+        if ($options['add_second_pands_dashboard_widget'] == 1) {
+            add_action('wp_dashboard_setup', 'add_second_pands_dashboard_widget');
+        }
+    } else {
+        /**
+         * @todo seperate between login pae and default wp template.
+         */
+        add_action('do_robots', 'mytheme_robots'); //no robot can access backend
+        add_action('login_head', 'my_custom_login_logo');
+        add_filter('login_headerurl', 'change_wp_login_url');
+        add_filter('login_headertitle', 'change_wp_login_title');
+        add_action('wp_head', 'blog_favicon');
+
+        // REMOVE HEADER TAT
+        if ($options['remove_rsd_link'] == 1)
+            remove_action('wp_head', 'rsd_link');
+        if ($options['remove_wp_generator'] == 1)
+            remove_action('wp_head', 'wp_generator');
+        if ($options['remove_feed_links'] == 1)
+            remove_action('wp_head', 'feed_links', 2);
+        if ($options['remove_index_rel_link'] == 1)
+            remove_action('wp_head', 'index_rel_link');
+        if ($options['remove_wlwmanifest_link'] == 1)
+            remove_action('wp_head', 'wlwmanifest_link');
+        if ($options['remove_feed_links_extra'] == 1)
+            remove_action('wp_head', 'feed_links_extra', 3);
+        if ($options['remove_start_post_rel_link'] == 1)
+            remove_action('wp_head', 'start_post_rel_link', 10, 0);
+        if ($options['remove_parent_post_rel_link'] == 1)
+            remove_action('wp_head', 'parent_post_rel_link', 10, 0);
+        if ($options['remove_adjacent_posts_rel_link_wp_head'] == 1)
+            remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+    }
+
+    //front and backend hooking
+    add_action('wp_before_admin_bar_render', 'sl_dashboard_tweaks_render');
+    add_action('widgets_init', 'my_unregister_widgets');
+    if ($options['remove_admin_bar'] == 1) {
+        add_filter('show_admin_bar', '__return_false');
+    }
+    if ($options['google_analytics_number'] != "") {
+        add_action('wp_footer', 'add_google_analytics');
+    }
+
+}
+
+//main loader
+add_action('plugins_loaded', 'pands_all_hooks');
 
 function pands_script_add_page() {
-    add_options_page('PandS CMS', 'PandS CMS Functions', 'manage_options', 'pands-script', 'pands_script_page');
+    add_options_page('PandS CMS', 'PandS CMS Functions', 'manage_options', UW_P_SLUG, 'pands_script_page');
 
 }
 
@@ -38,12 +146,6 @@ function pands_script_page() {
 
 }
 
-wp_enqueue_script('jquery');
-wp_enqueue_script('jquery-ui-core');
-wp_enqueue_script('jquery-ui-tabs');
-
-$options = get_option('pands_script_plugin_options');
-
 // Rename the admin page title
 function pands_admin_title() {
     $options = get_option('pands_script_plugin_options');
@@ -56,8 +158,6 @@ function pands_admin_title() {
     return $new_title;
 
 }
-
-add_filter('admin_title', 'pands_admin_title');
 
 // 	function pands_admin_favicon() { $options =
 // get_option('pands_script_plugin_options'); if
@@ -86,8 +186,6 @@ function pands_custom_admin_logo() {
 
 }
 
-add_action('admin_head', 'pands_custom_admin_logo');
-
 // LOGIN HEADER LOGO
 function my_custom_login_logo() {
     $options = get_option('pands_script_plugin_options');
@@ -98,8 +196,6 @@ function my_custom_login_logo() {
     }
 
 }
-
-add_action('login_head', 'my_custom_login_logo');
 
 // CUSTOM ADMIN LOGIN HEADER LINK & ALT TEXT
 function change_wp_login_url() {
@@ -122,9 +218,6 @@ function change_wp_login_title() {
 
 }
 
-add_filter('login_headerurl', 'change_wp_login_url');
-add_filter('login_headertitle', 'change_wp_login_title');
-
 // ADD FAVICON
 function blog_favicon() {
     $options = get_option('pands_script_plugin_options');
@@ -134,18 +227,6 @@ function blog_favicon() {
         echo '<link rel="Shortcut Icon" type="image/x-icon" href="' . $options['blog_favicon'] . '" />';
     }
 
-}
-
-add_action('wp_head', 'blog_favicon');
-
-// ADD JQUERY PROPERLY
-if (!is_admin()) {
-    wp_deregister_script('jquery');
-    if ($options['jquery_path'] != "")
-        wp_register_script('jquery', ($options['jquery_path']), false);
-    else
-        wp_register_script('jquery', ("https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"), true);
-    wp_enqueue_script('jquery');
 }
 
 // CHANGE 'HOWDY' TO 'LOGGED IN AS'
@@ -158,9 +239,6 @@ function change_howdy($translated, $text, $domain) {
     return $translated;
 
 }
-
-if ($options['change_howdy'] != "")
-    add_filter('gettext', 'change_howdy', 10, 3);
 
 // REMOVE META BOXES FROM DEFAULT PAGES SCREEN
 function pands_remove_boxes() {
@@ -205,8 +283,6 @@ function pands_remove_boxes() {
 
 }
 
-add_action('admin_init', 'pands_remove_boxes');
-
 // DISABLE DEFAULT DASHBOARD WIDGETS
 function disable_default_dashboard_widgets() {
     $options = get_option('pands_script_plugin_options');
@@ -228,8 +304,6 @@ function disable_default_dashboard_widgets() {
         remove_meta_box('dashboard_secondary', 'dashboard', 'core');
 
 }
-
-add_action('admin_menu', 'disable_default_dashboard_widgets');
 
 // REMOVE DEFAULT WIDGETS //
 function my_unregister_widgets() {
@@ -265,8 +339,6 @@ function my_unregister_widgets() {
 
 }
 
-add_action('widgets_init', 'my_unregister_widgets');
-
 // REMOVE MENU ITEMS
 function remove_admin_menus() {
     $options = get_option('pands_script_plugin_options');
@@ -290,8 +362,6 @@ function remove_admin_menus() {
         remove_menu_page('options-general.php'); // Settings
 
 }
-
-add_action('admin_menu', 'remove_admin_menus');
 
 // REMOVE SUBMENUS
 function remove_submenus() {
@@ -322,31 +392,6 @@ function remove_submenus() {
 
 }
 
-add_action('admin_menu', 'remove_submenus');
-
-// REMOVE HEADER TAT
-if ($options['remove_rsd_link'] == 1)
-    remove_action('wp_head', 'rsd_link');
-if ($options['remove_wp_generator'] == 1)
-    remove_action('wp_head', 'wp_generator');
-if ($options['remove_feed_links'] == 1)
-    remove_action('wp_head', 'feed_links', 2);
-if ($options['remove_index_rel_link'] == 1)
-    remove_action('wp_head', 'index_rel_link');
-if ($options['remove_wlwmanifest_link'] == 1)
-    remove_action('wp_head', 'wlwmanifest_link');
-if ($options['remove_feed_links_extra'] == 1)
-    remove_action('wp_head', 'feed_links_extra', 3);
-if ($options['remove_start_post_rel_link'] == 1)
-    remove_action('wp_head', 'start_post_rel_link', 10, 0);
-if ($options['remove_parent_post_rel_link'] == 1)
-    remove_action('wp_head', 'parent_post_rel_link', 10, 0);
-if ($options['remove_adjacent_posts_rel_link_wp_head'] == 1)
-    remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
-
-if ($options['remove_admin_bar'] == 1)
-    add_filter('show_admin_bar', '__return_false');
-
 // Remove WordPress sub-menu from the admin bar, add custom admin logo instead and remove "Visit Site" sub-menu under site-name.
 // Piet Bos  (email: senlinonline@gmail.com)
 function sl_dashboard_tweaks_render() {
@@ -368,15 +413,11 @@ function sl_dashboard_tweaks_render() {
 
 }
 
-add_action('wp_before_admin_bar_render', 'sl_dashboard_tweaks_render');
-
 function custom_pages_columns($defaults) {
     unset($defaults['comments']);
     return $defaults;
 
 }
-
-add_filter('manage_pages_columns', 'custom_pages_columns');
 
 // CUSTOM COMMENTS
 function wp_threaded_comments($comment, $args, $depth) {
@@ -407,8 +448,7 @@ function wp_threaded_comments($comment, $args, $depth) {
 // MAIN DASHBOARD PANEL
     function first_pands_dashboard_widget() {
         $options = get_option('pands_script_plugin_options');
-        echo '<h3>' . $options['main_dashboard_title'] . '</h3>
-<p>' . $options['main_dashboard_body'] . '</p>';
+        echo '<h3>' . $options['main_dashboard_title'] . '</h3><p>' . $options['main_dashboard_body'] . '</p>';
 
     }
 
@@ -416,9 +456,6 @@ function wp_threaded_comments($comment, $args, $depth) {
         wp_add_dashboard_widget('first_pands_dashboard_widget', __('Welcome'), 'first_pands_dashboard_widget');
 
     }
-
-    if ($options['add_first_pands_dashboard_widget'] == 1)
-        add_action('wp_dashboard_setup', 'add_first_pands_dashboard_widget');
 
 // SECONDARY DASBOARD PANEL
     function second_pands_dashboard_widget() {
@@ -432,9 +469,6 @@ function wp_threaded_comments($comment, $args, $depth) {
         wp_add_dashboard_widget('second_pands_dashboard_widget', __('HOW TO:'), 'second_pands_dashboard_widget');
 
     }
-
-    if ($options['add_second_pands_dashboard_widget'] == 1)
-        add_action('wp_dashboard_setup', 'add_second_pands_dashboard_widget');
 
 // OPTIONAL - AUTO CREATE ROBOTS.TXT FILE
 // ADAPT AS REQUIRED
@@ -482,8 +516,6 @@ function wp_threaded_comments($comment, $args, $depth) {
 
     }
 
-    add_action('do_robots', 'mytheme_robots');
-
 // ADMIN FOOTER STUFF
     function modify_footer_admin() {
         $options = get_option('pands_script_plugin_options');
@@ -491,18 +523,13 @@ function wp_threaded_comments($comment, $args, $depth) {
 
     }
 
-    add_filter('admin_footer_text', 'modify_footer_admin');
-
     function change_footer_version() {
         $options = get_option('pands_script_plugin_options');
         return 'Version ' . $options['footer_ver'];
 
     }
 
-    if ($options['footer_ver'] != "")
-        add_filter('update_footer', 'change_footer_version', 9999);
-
-// ADD GOOGLE ANALYTICS TRACKING CODE
+    // ADD GOOGLE ANALYTICS TRACKING CODE
     function add_google_analytics() {
         $options = get_option('pands_script_plugin_options');
         ?>
@@ -516,10 +543,6 @@ function wp_threaded_comments($comment, $args, $depth) {
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
         </script>
-        <?php
+    <?php
 
-    }
-
-    if ($options['google_analytics_number'] != "")
-        add_action('wp_footer', 'add_google_analytics');
-    ?>
+}
